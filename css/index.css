@@ -1,0 +1,325 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+@font-face {
+    font-family: electronicFont;
+    src: url(../font/HuaGuangGangTieZhiHei-KeBianTi-2.ttf);
+}
+
+.main {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: url(../images/bg.jpg) no-repeat;
+    background-size: cover;
+    /* height: 880px; */
+    min-width: 1386px;
+}
+
+.top_title {
+    position: relative;
+    width: 100%;
+    padding-top: 50px;
+    height: 1.25rem;
+    background: url(../images/head_bg.png) no-repeat top center;
+    text-align: center;
+    background-size: 100% 100%;
+}
+
+hl {
+    position: absolute;
+    display: inline;
+    top: 0.5rem;
+    line-height: 2.5rem;
+    font-weight: 600;
+    font-size: 2.5rem;
+    font-family: electronicFont;
+    background: -webkit-linear-gradient(90deg, #ff8eff, yellow);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    right: 33rem;
+}
+
+.showTime {
+    position: absolute;
+    top: 50px;
+    right: 0.375rem;
+    background: -webkit-linear-gradient(90deg, #ff8eff, yellow);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 0.9375rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #00e3e3;
+}
+
+.top_title img {
+    width: 100%;
+}
+
+.datas {
+    width: 95%;
+    height: 80%;
+    margin: auto;
+    margin-top: 0%;
+}
+
+.data_left,
+.data_middle,
+.data_right {
+    float: left;
+    height: 100%;
+}
+
+.data_left {
+    width: 26%;
+}
+
+.left_top {
+    width: 100%;
+    height: 33%;
+    background: url(../images/dataBg.png) no-repeat;
+    background-size: 100%;
+}
+
+.left_top_title {
+    font-size: 16px;
+    font-weight: bolder;
+    padding-left: 10%;
+    background: -webkit-linear-gradient(90deg, #ff8eff, #9aff02);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-top: 6%;
+}
+
+.left_top_main {
+    width: 80%;
+    height: 76%;
+    margin: auto;
+    margin-top: 4%;
+}
+
+.left_middle {
+    width: 100%;
+    height: 67%;
+    margin-top: 5%;
+    background: url(../images/msgBg2.png) no-repeat;
+    background-size: 100%;
+}
+
+.left_middle_title {
+    font-size: 16px;
+    color: #f9f900;
+    font-weight: 600;
+    background: -webkit-linear-gradient(90deg, #ff8eff, #f9f900);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-left: 10%;
+    padding-top: 10%;
+    background-size: 100%;
+}
+
+.left_middle_main {
+    width: 80%;
+    height: 76%;
+    margin: auto;
+    margin-top: 4%;
+}
+
+.data_middle {
+    width: 38%;
+    margin: 0 2.5%;
+    /* background: white; */
+}
+
+.middle_top {
+    width: 100%;
+    height: 17%;
+}
+
+.middle_top_list {
+    float: left;
+    width: 33.2%;
+    height: 65%;
+    margin-top: 5%;
+    text-align: center;
+    color: #4ADEFE;
+}
+
+.middle_top_list span {
+    color: #F3DB5C;
+    background: -webkit-linear-gradient(90deg, #ff8eff, #f9f900);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+}
+
+.list_title {
+    font-size: 25px;
+    margin-top: -15%;
+    background: -webkit-linear-gradient(90deg, #ff8eff, #f9f900);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+}
+
+.list_num {
+    margin-top: 3%;
+    font-size: 16px;
+    background: -webkit-linear-gradient(90deg, #ff8eff, #f9f900);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+}
+
+.list_num span {
+    font-size: 30px;
+}
+
+.today_list_font {
+    font-size: 14px;
+    margin-top: 4%;
+}
+
+.middle_top_list:nth-of-type(2) {
+    border-left: 1px solid #4E72B0;
+    border-right: 1px solid #4E72B0;
+}
+
+.middle_middle {
+    width: 100%;
+    height: 86%;
+    margin-top: 0%;
+    background: url(../images/dataBg.png) no-repeat;
+    background-size: 170%;
+}
+
+.middle_middle_top {
+    /*修改*/
+    width: 100%;
+    height: 50%;
+    margin-top: 0%;
+    background: transparent;
+}
+
+.middle_middle_top_left {
+    /*修改*/
+    float: left;
+    width: 50%;
+    height: 100%;
+    margin-top: 5%;
+    background: transparent;
+}
+
+.middle_middle_top_right {
+    /*修改*/
+    float: right;
+    width: 50%;
+    height: 100%;
+    margin-top: 5%;
+    background: transparent;
+}
+
+.middle_middle_middle {
+    width: 100%;
+    height: 50%;
+    margin-top: 0%;
+    background: transparent;
+}
+
+.middle_middle_middle_left {
+    /*修改*/
+    float: left;
+    width: 50%;
+    height: 100%;
+    margin-top: 0%;
+    background: transparent;
+}
+
+.middle_middle_middle_right {
+    /*修改*/
+    float: left;
+    width: 50%;
+    height: 100%;
+    margin-top: 0%;
+    background: transparent;
+}
+
+.data_right {
+    width: 31%;
+}
+
+.right_top {
+    width: 100%;
+    height: 33%;
+    background: url(../images/msgBg.png) no-repeat;
+    margin-top: 1%;
+    background-size: 100%;
+}
+
+.right_top_title {
+    font-size: 16px;
+    font-weight: 600;
+    background: -webkit-linear-gradient(90deg, #ff8eff, #f9f900);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-left: 10%;
+    padding-top: 6%;
+}
+
+.right_top_main {
+    width: 95%;
+}
+
+.right_middle {
+    width: 100%;
+    height: 33%;
+    background: url(../images/msgBg.png) no-repeat;
+    margin-top: 1%;
+    background-size: 100%;
+}
+
+.right_middle_title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffd306;
+    background: -webkit-linear-gradient(90deg, #ff8eff, #f9f900);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-left: 10%;
+    padding-top: 6%;
+}
+
+.right_bottom {
+    width: 100%;
+    height: 100%;
+    margin-top: 0%;
+    background: url(../images/msgBg.png) no-repeat;
+    background-size: 100%;
+}
+
+.right_bottom_title {
+    font-size: 16px;
+    background: -webkit-linear-gradient(90deg, #ff8eff, red);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bolder;
+    padding-left: 10%;
+    padding-top: 6%;
+}
+
+.highcharts-credits {
+    display: none;
+}
+
+.highcharts-legend {
+    display: none;
+}

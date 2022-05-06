@@ -1,0 +1,598 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>安徽省粮食可视化平台</title>
+    <link rel="stylesheet" href="./css/index安徽.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="top_title">
+            <hl> 安徽省粮食可视化平台</hl>
+            <div class="showTime">当前时间：2020年3月17-0时54分14秒</div>
+            <script>
+                var t = null;
+                t = setTimeout(time, 1000); //開始运行
+                function time() {
+                    clearTimeout(t); //清除定时器
+                    dt = new Date();
+                    var y = dt.getFullYear();
+                    var mt = dt.getMonth() + 1;
+                    var day = dt.getDate();
+                    var h = dt.getHours(); //获取时
+                    var m = dt.getMinutes(); //获取分
+                    var s = dt.getSeconds(); //获取秒
+                    document.querySelector(".showTime").innerHTML =
+                        "当前时间：" +
+                        y +
+                        "年" +
+                        mt +
+                        "月" +
+                        day +
+                        "日" +
+                        h +
+                        "时" +
+                        m +
+                        "分" +
+                        s +
+                        "秒";
+                    t = setTimeout(time, 1000); //设定定时器，循环运行
+                }
+            </script>
+        </div>
+        <div class="datas">
+            <div class="data_left">
+                <div class="left_top">
+                    <div class="left_top_title">安徽省粮食供需情况及预测</div>
+                    <div id="shiyan2" class="left_top_main">
+
+                    </div>
+                </div>
+                <div class="left_bottom">
+                    <div class="left_top_title">安徽省粮食消费组成</div>
+                    <div id="Business_type" class="left_top_main left_bottom_main"></div>
+                </div>
+            </div>
+            <div class="data_middle">
+                <div class="middle_top">
+                    <div class="middle_top_list">
+                        <div class="list_title">地区</div>
+                        <div class="list_num list_num1"><span>安徽省</span></div>
+                    </div>
+                    <div class="middle_top_list">
+                        <div class="list_title">人口总数</div>
+                        <div class="list_num list_num2"><span class="counter-value">6102.3</span>万人</div>
+                    </div>
+                    <div class="middle_top_list">
+                        <div class="list_title">耕地面积</div>
+                        <div class="list_num list_num3"><span class="counter-value">573</span>万公顷</div>
+                    </div>
+                </div>
+                <div id="map" class="middle_bottom"></div>
+            </div>
+            <div class="data_right">
+                <div class="right_top">
+                    <div class="left_top_title">安徽省主要粮食产量占比</div>
+                    <div id="Land_analysis" class="left_top_main right_top_main"></div>
+                </div>
+                <div class="right_bottom">
+                    <div class="left_top_title">安徽省主要粮食产量预测</div>
+                    <div id="Information_Delivery" class="left_top_main right_top_main"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="./js/jquery-1.8.3.min.js"></script>
+<script src="https://img.hcharts.cn/highmaps/highmaps.js"></script>
+<script src="https://data.jianshukeji.com/geochina/anhui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.2.1/echarts-en.min.js"></script>
+<script type="text/javascript">
+    function OSnow() {
+        var agent = navigator.userAgent.toLowerCase();
+        var isMac = /macintosh|mac os x/i.test(navigator.userAgent);
+        if (agent.indexOf("win32") >= 0 || agent.indexOf("wow32") >= 0) {
+            $(".main").css("height", "880px");
+        }
+        if (agent.indexOf("win64") >= 0 || agent.indexOf("wow64") >= 0) {
+            $(".main").css("height", "880px");
+        }
+        if (isMac) {
+
+        }
+    }
+    OSnow();
+
+    function numInit() {
+        $('.counter-value').each(function() {
+            $(this).prop('Counter', 0).animate({
+                Counter: $(this).text()
+            }, {
+                duration: 2500,
+                easing: 'swing',
+                step: function(now) {
+                    $(this).text(now.toFixed(2));
+                }
+            });
+        });
+    }
+
+    numInit();
+    // 基于准备好的dom，初始化echarts实例
+    var i = 0;
+    var myChart1 = echarts.init(document.getElementById('Business_type'));
+
+    // 指定图表的配置项和数据
+    option1 = {
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            x: 'center',
+            y: 'bottom',
+            data: ['口粮', '饲料用粮', '工业用粮', '种子用粮', '其他'],
+            textStyle: {
+                color: '#4ADEFE',
+            }
+        },
+        series: [{
+            name: '访问来源',
+            type: 'pie',
+            radius: ['30%', '55%'],
+            center: ['45%', '35%'],
+            avoidLabelOverlap: false,
+            data: [{
+                value: 36.62,
+                name: '口粮'
+            }, {
+                value: 36.61,
+                name: '饲料用粮'
+            }, {
+                value: 20.18,
+                name: '工业用粮'
+            }, {
+                value: 1.68,
+                name: '种子用粮'
+            }, {
+                value: 4.91,
+                name: '其他'
+            }],
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }],
+        color: ['#F3DB5D', '#009AFF', '#F77474', '#28DCCF', '#FF5937']
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart1.setOption(option1);
+
+    var myChart2 = echarts.init(document.getElementById('Land_analysis'));
+
+    option2 = {
+        legend: {
+            x: 'left',
+            y: 'top',
+            textStyle: {
+                color: '#4ADEFE',
+                fontWeight: 'bolder',
+            }
+        },
+        grid: {
+            show: false,
+            top: '30%',
+            right: '5%',
+            bottom: '19%',
+            left: '15%'
+        },
+        tooltip: {},
+        dataset: {
+            source: [
+                ['product', '历史小麦产量占比(%)', '历史稻谷产量占比(%)', '历史玉米产量占比(%)'],
+                ['2006', 53.11, 33.55, 56.66],
+                ['2008', 52.95, 35.43, 57.00],
+                ['2010', 53.43, 35.20, 57.25],
+                ['2012', 54.09, 34.92, 62.02],
+                ['2014', 53.53, 35.03, 63.15],
+                ['2016', 54.49, 34.97, 63.41],
+                ['2018', 54.47, 39.98, 64.91],
+            ]
+        },
+        xAxis: {
+            type: 'category',
+            axisLine: {
+                show: true,
+                lineStyle: {
+                    color: "#4ADEFE",
+                },
+            },
+            axisLabel: {
+                interval: 0,
+                textStyle: {
+                    fontWeight: 'bolder' //字体加粗
+                }
+            },
+            axisTick: {
+                alignWithLabel: true,
+                interval: 0,
+            },
+        },
+        yAxis: {
+            axisLine: {
+                lineStyle: {
+                    color: "#4ADEFE",
+                }
+            },
+            axisLabel: {
+                interval: 0,
+                textStyle: {
+                    fontWeight: 'bolder' //字体加粗
+                }
+            },
+            splitLine: {
+                show: false,
+                lineStyle: {
+                    color: '#4ADEFE',
+                }
+            }
+        },
+        series: [{
+                type: 'bar',
+                barMaxWidth: '10',
+                itemStyle: {
+                    normal: {
+                        color: '#4ADEFE'
+                    },
+                },
+            }, {
+                type: 'bar',
+                barMaxWidth: '10',
+                itemStyle: {
+                    normal: {
+                        color: '#FF5937'
+                    },
+                },
+            }, {
+                type: 'bar',
+                barMaxWidth: '10',
+                itemStyle: {
+                    normal: {
+                        color: '#F3DB5C',
+                    },
+                },
+            },
+
+        ]
+    };
+    myChart2.setOption(option2);
+
+    var myChart3 = echarts.init(document.getElementById('Information_Delivery'));
+
+    option3 = {
+        legend: {
+            x: 'right',
+            y: 'top',
+            padding: [0, 0, 0, 0],
+            textStyle: {
+                color: '#4ADEFE',
+                fontWeight: 'bolder',
+            }
+        },
+        grid: {
+            show: false,
+            top: '20%',
+            right: '5%',
+            bottom: '19%',
+            left: '10%'
+        },
+        tooltip: {},
+        dataset: {
+            source: [
+                ['product', '小麦预测产量(万吨)', '稻谷预测产量(万吨)', '玉米预测产量(万吨)'],
+                ['2022', 1878.50, 1590.40, 639.50],
+                ['2023', 1951.10, 1594.00, 654.50],
+                ['2024', 2026.80, 1597.40, 669.50],
+                ['2025', 2105.60, 1600.70, 684.40],
+                ['2026', 2187.70, 1603.90, 699.40],
+                ['2027', 2273.30, 1607.00, 714.30],
+                ['2028', 2362.50, 1610.00, 729.20],
+                ['2029', 2455.40, 1612.80, 744.20],
+                ['2030', 2552.30, 1615.60, 759.10],
+            ]
+        },
+        xAxis: {
+            type: 'category',
+            axisLine: {
+                lineStyle: {
+                    color: "#28DCCF",
+                }
+            },
+            axisLabel: {
+                interval: 0,
+                textStyle: {
+                    fontWeight: 'bolder' //字体加粗
+                }
+            },
+        },
+        yAxis: {
+            name: '产量（万吨）',
+            axisLine: {
+                lineStyle: {
+                    color: "#4ADEFE",
+                }
+            },
+            axisLabel: {
+                interval: 0,
+                textStyle: {
+                    fontWeight: 'bolder' //字体加粗
+                }
+            },
+            splitLine: {
+                show: false,
+                lineStyle: {
+                    color: '#4ADEFE',
+                }
+            }
+        },
+        series: [{
+            type: 'bar',
+            barMaxWidth: '10',
+            itemStyle: {
+                normal: {
+                    color: '#4ADEFE'
+                },
+            },
+        }, {
+            type: 'bar',
+            barMaxWidth: '10',
+            itemStyle: {
+                normal: {
+                    color: '#FF5937'
+                },
+            },
+        }, {
+            type: 'bar',
+            barMaxWidth: '10',
+            itemStyle: {
+                normal: {
+                    color: '#F3DB5C',
+                },
+            },
+        }]
+    };
+    myChart3.setOption(option3);
+
+
+    // 随机数据
+    var data = [{
+        "name": "宿州",
+        "value": 46
+    }, {
+        "name": "蚌埠",
+        "value": 81
+    }, {
+        "name": "滁州",
+        "value": 94
+    }, {
+        "name": "马鞍山",
+        "value": 40
+    }, {
+        "name": "芜湖",
+        "value": 67
+    }, {
+        "name": "宣城",
+        "value": 38
+    }, {
+        "name": "黄山",
+        "value": 50
+    }, {
+        "name": "安庆",
+        "value": 48
+    }, {
+        "name": "合肥",
+        "value": 77
+    }, {
+        "name": "六安",
+        "value": 78
+    }, {
+        "name": "淮南",
+        "value": 57
+    }, {
+        "name": "亳州",
+        "value": 83
+    }, {
+        "name": "阜阳",
+        "value": 43
+    }, {
+        "name": "安庆",
+        "value": 75
+    }, {
+        "name": "铜陵",
+        "value": 43
+    }, {
+        "name": "池州",
+        "value": 83
+    }, {
+        "name": "淮北",
+        "value": 83
+    }];
+    option4 = {
+            title: {
+                text: ''
+            },
+            tooltip: {
+                enabled: false
+            },
+            chart: {
+                backgroundColor: 'transparent',
+            },
+            legend: {
+                enabled: true,
+            },
+            colorAxis: {
+                minColor: '#99FFFF',
+                maxColor: '#00CCFF'
+            },
+            series: [{
+                data: data,
+                borderColor: '#6099EC',
+                borderWidth: 0.7,
+                mapData: Highcharts.maps['cn/anhui'],
+                name: '',
+                joinBy: ['name'], // 根据 name 属性进行关联
+                states: {
+                    enabled: true,
+                    hover: {
+                        color: '#F3DB5C'
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    color: '#4ADEFE',
+                    format: '{point.name}'
+                },
+                cursor: 'pointer',
+                events: {
+                    click: function(e) {
+                        if (e.point.name == "合肥", "宿州", "蚌埠", "滁州", "马鞍山", "芜湖", "宣城", "黄山", "安庆", "六安", "淮南", "亳州", "阜阳", "安庆", "铜陵", "池州", "淮北") {
+
+
+                            new Highcharts.Map('map', option4);
+                            numInit();
+                        }
+                    }
+                }
+            }]
+        }
+        // 初始化图表
+    var map = new Highcharts.Map('map', option4);
+
+    var chartDom = document.getElementById('shiyan2');
+    var myChart4 = echarts.init(chartDom);
+    var option5;
+
+    option5 = {
+        title: {},
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            orient: 'vertical',
+            textStyle: {
+                color: '#4ADEFE',
+                fontWeight: 'bolder',
+            }
+        },
+        grid: {
+            show: false,
+            top: '20%',
+            right: '18%',
+            bottom: '19%',
+            left: '15%'
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            axisLine: {
+                show: true,
+                lineStyle: {
+                    color: "#4ADEFE",
+                },
+            },
+            axisLabel: {
+                interval: 0,
+                rotate: 45, //倾斜度 -90 至 90 默认为0
+                textStyle: {
+                    fontWeight: 'bolder' //字体加粗
+                }
+            },
+            data: ['2006', '2008', '2010', '2012', '2014', '2016', '2018', '2022', '2024', '2026', '2028', '2030']
+        },
+        yAxis: [{
+            type: 'value',
+            name: '(万吨)',
+            axisLine: {
+                lineStyle: {
+                    color: "#4ADEFE",
+                }
+            },
+            axisLabel: {
+                interval: 0,
+                textStyle: {
+                    fontWeight: 'bolder' //字体加粗
+                }
+            },
+            splitLine: {
+                show: false,
+                lineStyle: {
+                    color: '#4ADEFE',
+                }
+            }
+        }, {
+            type: 'value',
+            name: '(万吨)',
+            axisLine: {
+                lineStyle: {
+                    color: "#4ADEFE",
+                }
+            },
+            axisLabel: {
+                interval: 0,
+                textStyle: {
+                    fontWeight: 'bolder' //字体加粗
+                }
+            },
+            splitLine: {
+                show: false,
+                lineStyle: {
+                    color: '#4ADEFE',
+                }
+            }
+        }, ],
+        series: [{
+            name: '供需差额',
+            type: 'line',
+            stack: 'Total',
+            itemStyle: {
+                normal: {
+                    color: '#FF5937'
+                },
+            },
+            data: [856.9, 1208.5, 1030.7, 1257.0, 1004.3, 985.6, 1490.1, 1492.5, 1512, 1521.6, 1523.6, '1519.9']
+        }, {
+            name: '粮食自给量',
+            type: 'line',
+            stack: 'Total',
+            yAxisIndex: 1,
+            itemStyle: {
+                normal: {
+                    color: '#F3DB5C'
+                },
+            },
+            data: [2860.4, 3023.2, 3080.7, 3289.0, 3416.1, 3417.2, 4006.9, 3867.1, 3838.5, 3810.7, 3783.7, 3757.5]
+        }, {
+            name: '粮食消费量',
+            type: 'line',
+            stack: 'Total',
+            yAxisIndex: 1,
+            itemStyle: {
+                normal: {
+                    color: 'green'
+                },
+            },
+            data: [2003.5, 1814.7, 2050.0, 2032.0, 2411.8, 2431.6, 2516.8, 2374.6, 2326.5, 2289.1, 2260.1, 2237.6]
+        }, ]
+    };
+
+    myChart4.setOption(option5);
+</script>
